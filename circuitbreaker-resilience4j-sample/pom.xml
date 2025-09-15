@@ -9,6 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.enjoy.springcloud.circuitbreaker.resilience4j</groupId>
     <artifactId>circuitbreaker-resilience4j-sample</artifactId>
     <packaging>pom</packaging>
     <modules>
