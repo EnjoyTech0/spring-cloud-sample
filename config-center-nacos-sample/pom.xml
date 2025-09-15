@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.enjoy.springcloud.configcenter.nacos</groupId>
-    <artifactId>nacos-as-config-center-sample</artifactId>
+    <artifactId>config-center-nacos-sample</artifactId>
 
     <dependencies>
         <dependency>
