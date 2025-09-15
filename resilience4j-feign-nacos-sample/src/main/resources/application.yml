@@ -1,0 +1,41 @@
+#spring:
+#  config:
+#    import:
+#      - nacos:resilience4j-feign-nacos-sample
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: nacos.dev:8848
+#      config:
+#        server-addr: nacos.dev:8848
+#        file-extension: yml
+
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      registerHealthIndicator: true
+      slidingWindowSize: 2 # 滑动窗口大小（请求数）
+      failureRateThreshold: 50 # 失败率阈值，2 次内失败率超过 50%，则进入 open 状态
+      waitDurationInOpenState: 5s # open 状态持续时间
+  instances:
+    payment-service: # 熔断器实例名，与 FeignClient 对应
+      baseConfig: default # 继承默认配置
+      # 我们可以通过这里覆盖默认配置，实现动态调整
+
+resilience4j.timelimiter:
+  configs:
+    default:
+      timeoutDuration: 1s # 超过1s则取消认为请求失败
+      cancelRunningFuture: true
+  instances:
+    payment-service: # 熔断器实例名，与 FeignClient 对应
+      baseConfig: default # 继承默认配置
+      # 我们可以通过这里覆盖默认配置，实现动态调整
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露所有端点，用于刷新配置

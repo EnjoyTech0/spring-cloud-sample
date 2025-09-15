@@ -12,6 +12,8 @@
         <module>circuitbreaker-resilience4j-sample</module>
         <module>config-center-nacos-sample</module>
         <module>lb-static-service-sample</module>
+        <module>resilience4j-nacos-as-config-center-sample</module>
+        <module>resilience4j-feign-nacos-sample</module>
     </modules>
 
     <properties>

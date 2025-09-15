@@ -1,0 +1,9 @@
+spring:
+  config:
+    import:
+      - nacos:resilience4j-nacos-sample
+  cloud:
+    nacos:
+      config:
+        server-addr: nacos.dev:8848
+        file-extension: yml
