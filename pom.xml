@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>circuitbreaker-resilience4j-sample</module>
+        <module>nacos-as-config-center-sample</module>
     </modules>
 
     <properties>
