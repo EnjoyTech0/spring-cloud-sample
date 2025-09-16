@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    # 对应 GatewayProperties 类
+    gateway:
+      routes:
+        - id: baidu # 路由 id，唯一标识
+          uri: https://www.baidu.com
+          predicates:
+              - Path=/baidu
+          filters:
+            - StripPrefix=1 # 过滤器，对请求进行拦截，移除1个前缀路径，即请求转发到 https://www.baidu.com 而不是 https://www.baidu.com/baidu
+        - id: ip
+          uri: https://httpspot.dev # 请求 localhost:8080/ip 将被转发到 https://httpspot.dev/ip
+          predicates:
+            - Path=/ip
+        - id: http-status-code
+          uri: https://httpspot.dev # 访问 localhost:8080/status/200 将被转发到 https://httpspot.dev/status/200
+          predicates:
+            - Path=/status/**
