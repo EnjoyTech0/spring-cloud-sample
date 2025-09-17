@@ -4,35 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.enjoy.springcloud.gateway</groupId>
-        <artifactId>gateway-samples</artifactId>
+        <groupId>com.enjoy.springcloud.circuitbreaker</groupId>
+        <artifactId>circuit-breaker-samples</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>gateway-lb-sample</artifactId>
+    <artifactId>spring-retry-circuit-breaker-sample</artifactId>
 
     <dependencies>
-        <!-- 引入 Spring Cloud Gateway 网关组件 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-circuitbreaker-spring-retry</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
