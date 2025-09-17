@@ -1,0 +1,61 @@
+spring:
+  cloud:
+    loadbalancer:
+      cache:
+        enabled: false
+      enabled: true
+    gateway:
+      default-filters:
+        - name: FallbackHeaders # 把熔断失败的上下文传(熔断触发的异常类型、异常信息、http状态码)递给 fallback 方法
+      loadbalancer:
+        use404: true # 当你通过lb访问一个不存的服务时（例如：hello-service1），会返回404（默认是503）
+      routes:
+        - id: fallback
+          uri: http://localhost:8080
+          predicates:
+            - Path=/fallback
+        - id: hello-service
+          uri: lb://hello-service # 负载均衡
+          predicates:
+            - Path=/hello
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
+    discovery:
+      client:
+        # 静态服务配置，SimpleDiscoveryClient
+        simple:
+          instances:
+            hello-service:
+              - uri: http://localhost:8001
+                instance-id: s1
+              - uri: http://localhost:8002
+                instance-id: s2
+              - uri: http://localhost:8003
+                instance-id: s3
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      registerHealthIndicator: true
+      slidingWindowSize: 2 # 滑动窗口大小（请求数）
+      failureRateThreshold: 50 # 失败率阈值，2 次内失败率超过 50%，则进入 open 状态
+      waitDurationInOpenState: 5s # open 状态持续时间
+
+resilience4j.timelimiter:
+  configs:
+    default:
+      timeoutDuration: 1s # 单次请求超过1s则认为请求失败，触发 fallback
+      cancelRunningFuture: true
+#
+#resilience4j.retry:
+#  configs:
+#    default:
+#      maxAttempts: 3                # 最多尝试 3 次（包含第一次）
+#      retry-exception-predicate: com.enjoy.springcloud.gateway.lb2.CustomCbRetryPredicate
